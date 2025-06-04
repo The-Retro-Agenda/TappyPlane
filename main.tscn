@@ -1,12 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhcbj1jjilqqy"]
+[gd_scene load_steps=7 format=3 uid="uid://dhcbj1jjilqqy"]
 
+[ext_resource type="Script" uid="uid://c3jtcvuuejvbj" path="res://background.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://br6x25rwpme8n" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ypn16s4ev6cn" path="res://Assets-TappyPlane/Background.png" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://dpcbckrlfao44" path="res://Assets-TappyPlane/Obstacle.png" id="4_lquwl"]
+[ext_resource type="Texture2D" uid="uid://lvxn0f7cff4n" path="res://Assets-TappyPlane/Coin.png" id="5_7mycd"]
+[ext_resource type="Texture2D" uid="uid://ciguc3vpxdvg7" path="res://Assets-TappyPlane/Player.png" id="6_7mycd"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_h2yge")
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Background" type="Node2D" parent="." groups=["DynamicObject"]]
 position = Vector2(0, 480)
 scale = Vector2(2, 2)
+script = ExtResource("1_0xm2m")
 
 [node name="Background" type="Sprite2D" parent="Background"]
 position = Vector2(400, 0)
@@ -15,3 +22,27 @@ texture = ExtResource("1_ig7tw")
 [node name="Background2" type="Sprite2D" parent="Background"]
 position = Vector2(1200, 0)
 texture = ExtResource("1_ig7tw")
+
+[node name="Obstacle" type="Sprite2D" parent="." groups=["DynamicObject"]]
+position = Vector2(1133, 122)
+texture = ExtResource("4_lquwl")
+
+[node name="Coin" type="Sprite2D" parent="." groups=["DynamicObject"]]
+position = Vector2(631, 619)
+texture = ExtResource("5_7mycd")
+
+[node name="Coin2" type="Sprite2D" parent="." groups=["DynamicObject"]]
+position = Vector2(434, 324)
+texture = ExtResource("5_7mycd")
+
+[node name="Coin3" type="Sprite2D" parent="." groups=["DynamicObject"]]
+position = Vector2(1163, 727)
+texture = ExtResource("5_7mycd")
+
+[node name="Coin4" type="Sprite2D" parent="." groups=["DynamicObject"]]
+position = Vector2(1892, 274)
+texture = ExtResource("5_7mycd")
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(217, 491)
+texture = ExtResource("6_7mycd")
