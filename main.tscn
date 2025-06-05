@@ -1,11 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhcbj1jjilqqy"]
+[gd_scene load_steps=8 format=3 uid="uid://dhcbj1jjilqqy"]
 
 [ext_resource type="Script" uid="uid://c3jtcvuuejvbj" path="res://background.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://br6x25rwpme8n" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ypn16s4ev6cn" path="res://Assets-TappyPlane/Background.png" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://dpcbckrlfao44" path="res://Assets-TappyPlane/Obstacle.png" id="4_lquwl"]
-[ext_resource type="Texture2D" uid="uid://lvxn0f7cff4n" path="res://Assets-TappyPlane/Coin.png" id="5_7mycd"]
+[ext_resource type="Script" uid="uid://cgg1im662y7i0" path="res://player.gd" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://ciguc3vpxdvg7" path="res://Assets-TappyPlane/Player.png" id="6_7mycd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1bvp3"]
+radius = 40.7922
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(1600, 20)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_h2yge")
@@ -23,26 +28,29 @@ texture = ExtResource("1_ig7tw")
 position = Vector2(1200, 0)
 texture = ExtResource("1_ig7tw")
 
-[node name="Obstacle" type="Sprite2D" parent="." groups=["DynamicObject"]]
-position = Vector2(1133, 122)
-texture = ExtResource("4_lquwl")
+[node name="Player" type="RigidBody2D" parent="."]
+position = Vector2(158, 478)
+mass = 2.2
+gravity_scale = 1.6
+continuous_cd = 1
+script = ExtResource("4_lquwl")
 
-[node name="Coin" type="Sprite2D" parent="." groups=["DynamicObject"]]
-position = Vector2(631, 619)
-texture = ExtResource("5_7mycd")
-
-[node name="Coin2" type="Sprite2D" parent="." groups=["DynamicObject"]]
-position = Vector2(434, 324)
-texture = ExtResource("5_7mycd")
-
-[node name="Coin3" type="Sprite2D" parent="." groups=["DynamicObject"]]
-position = Vector2(1163, 727)
-texture = ExtResource("5_7mycd")
-
-[node name="Coin4" type="Sprite2D" parent="." groups=["DynamicObject"]]
-position = Vector2(1892, 274)
-texture = ExtResource("5_7mycd")
-
-[node name="Player" type="Sprite2D" parent="."]
-position = Vector2(217, 491)
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("6_7mycd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_1bvp3")
+
+[node name="walls" type="Node" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D"]
+position = Vector2(800, 0)
+shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D2"]
+position = Vector2(800, 960)
+shape = SubResource("RectangleShape2D_lquwl")
