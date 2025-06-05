@@ -1,16 +1,23 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhcbj1jjilqqy"]
+[gd_scene load_steps=11 format=3 uid="uid://dhcbj1jjilqqy"]
 
 [ext_resource type="Script" uid="uid://c3jtcvuuejvbj" path="res://background.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://br6x25rwpme8n" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ypn16s4ev6cn" path="res://Assets-TappyPlane/Background.png" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cgg1im662y7i0" path="res://player.gd" id="4_lquwl"]
 [ext_resource type="Texture2D" uid="uid://ciguc3vpxdvg7" path="res://Assets-TappyPlane/Player.png" id="6_7mycd"]
+[ext_resource type="FontFile" uid="uid://cxo02uyl8y8yq" path="res://Assets-TappyPlane/kenvector_future.ttf" id="6_272bh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1bvp3"]
 radius = 40.7922
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
-size = Vector2(1600, 20)
+size = Vector2(1600, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vw27"]
+bg_color = Color(0.164706, 0.164706, 0.164706, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kek77"]
+bg_color = Color(0, 0.725487, 0.199316, 1)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_h2yge")
@@ -46,11 +53,44 @@ shape = SubResource("CircleShape2D_1bvp3")
 [node name="StaticBody2D" type="StaticBody2D" parent="walls"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D"]
-position = Vector2(800, 0)
+position = Vector2(800, 29)
 shape = SubResource("RectangleShape2D_lquwl")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="walls"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="walls/StaticBody2D2"]
-position = Vector2(800, 960)
+position = Vector2(800, 980)
 shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="UI" type="Control" parent="."]
+z_index = 5
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 68.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_5vw27")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kek77")
+value = 38.46
+show_percentage = false
+
+[node name="ScoreLabel" type="Label" parent="UI/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_272bh")
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
