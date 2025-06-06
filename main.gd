@@ -1,5 +1,12 @@
 extends Node
 
+@export var obstacleScene : PackedScene
+var spawnedOffsetX : int = 1700
+var random : int
+
+@export var coinScene : PackedScene
+
+
 var dynamicObjectSpeed : int = 700
 var healthDecreaseSpeed : int = 3
 var health : float = 100
@@ -22,5 +29,30 @@ func _process(delta: float) -> void:
 	#else:
 		#print("Game Over")
 	
+
+func _on_spawner_timer_timeout() -> void:
+	random = randi() % 2
+	var obstacleInstance : Area2D = obstacleScene.instantiate()
+	add_child(obstacleInstance)
+	obstacleInstance.position.x = spawnedOffsetX
+	if random == 0:
+		obstacleInstance.position.y = 200
+	else:
+		obstacleInstance.position.y = 800
+		obstacleInstance.scale.y *= -1
 		
-		
+func _on_coin_timer_timeout() -> void:
+	random = randi() % 3
+	var coinInstance : Area2D = coinScene.instantiate()
+	add_child(coinInstance)
+	coinInstance.position.x = spawnedOffsetX
+	coinInstance.position.y = 200 + random * 200
+	
+
+	
+	#0
+	
+	#1
+	
+	#2
+	

@@ -27,6 +27,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="TappyPlane"
 
+[global_group]
+
+DynamicObject=""
+
 [input]
 
 click={
