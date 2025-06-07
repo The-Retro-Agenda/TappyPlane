@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="TappyPlane"
-run/main_scene="uid://dhcbj1jjilqqy"
+run/main_scene="uid://b7f0bc72rbqco"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="uid://ciguc3vpxdvg7"
 
@@ -30,6 +30,7 @@ project/assembly_name="TappyPlane"
 [global_group]
 
 DynamicObject=""
+Player=""
 
 [input]
 

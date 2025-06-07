@@ -25,6 +25,7 @@ bg_color = Color(0, 0.725487, 0.199316, 1)
 script = ExtResource("1_h2yge")
 obstacleScene = ExtResource("4_272bh")
 coinScene = ExtResource("8_5vw27")
+coinHealth = 10.0
 
 [node name="SpawnerTimer" type="Timer" parent="."]
 wait_time = 0.75
@@ -47,11 +48,13 @@ texture = ExtResource("1_ig7tw")
 position = Vector2(1200, 0)
 texture = ExtResource("1_ig7tw")
 
-[node name="Player" type="RigidBody2D" parent="."]
+[node name="Player" type="RigidBody2D" parent="." groups=["Player"]]
 position = Vector2(158, 478)
 mass = 2.2
 gravity_scale = 1.6
 continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 10
 script = ExtResource("4_lquwl")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]

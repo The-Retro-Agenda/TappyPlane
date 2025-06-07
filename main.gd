@@ -1,13 +1,19 @@
 extends Node
 
+# obstacle variables
 @export var obstacleScene : PackedScene
 var spawnedOffsetX : int = 1700
 var random : int
+var lastObstaclePosition : String
 
+# coin variables
 @export var coinScene : PackedScene
+@export var coinHealth : float
 
-
+# scrolling speed
 var dynamicObjectSpeed : int = 700
+
+# player variables
 var healthDecreaseSpeed : int = 3
 var health : float = 100
 var score : float = 0
@@ -37,22 +43,37 @@ func _on_spawner_timer_timeout() -> void:
 	obstacleInstance.position.x = spawnedOffsetX
 	if random == 0:
 		obstacleInstance.position.y = 200
+		lastObstaclePosition = "up"
 	else:
 		obstacleInstance.position.y = 800
 		obstacleInstance.scale.y *= -1
+		lastObstaclePosition = "down"
 		
 func _on_coin_timer_timeout() -> void:
 	random = randi() % 3
+	
+	if lastObstaclePosition == "up" and random == 0:
+		return
+	
+	if lastObstaclePosition == "down" and random == 2:
+		return
+	
 	var coinInstance : Area2D = coinScene.instantiate()
 	add_child(coinInstance)
 	coinInstance.position.x = spawnedOffsetX
-	coinInstance.position.y = 200 + random * 200
+	coinInstance.position.y = 280 + random * 200
+	coinInstance.body_entered.connect(_on_coin_collided.bind(coinInstance))
 	
-
+func _on_coin_collided(body : Node2D, coinInstance : Area2D) -> void:
 	
-	#0
+	if body.is_in_group("Player"):
+		health += coinHealth
+		if health > 100:
+			health = 100
+		coinInstance.queue_free()
 	
-	#1
+func _on_obstacle_collided(body : Node2D) -> void:
+	pass
 	
-	#2
+	
 	
