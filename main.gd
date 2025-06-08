@@ -14,7 +14,7 @@ var lastObstaclePosition : String
 var dynamicObjectSpeed : int = 700
 
 # player variables
-var healthDecreaseSpeed : int = 3
+@export var healthDecreaseSpeed : int = 5
 var health : float = 100
 var score : float = 0
 var formattedScore : String = str(score)
@@ -27,6 +27,8 @@ func _process(delta: float) -> void:
 	if health > 0:
 		health -= delta * healthDecreaseSpeed
 		$UI/HealthBar.value = health
+	else:
+		_game_over()
 		
 	score += delta
 	formattedScore = str(score)
@@ -41,6 +43,8 @@ func _on_spawner_timer_timeout() -> void:
 	var obstacleInstance : Area2D = obstacleScene.instantiate()
 	add_child(obstacleInstance)
 	obstacleInstance.position.x = spawnedOffsetX
+	obstacleInstance.body_entered.connect(_on_obstacle_collided)
+	
 	if random == 0:
 		obstacleInstance.position.y = 200
 		lastObstaclePosition = "up"
@@ -73,7 +77,14 @@ func _on_coin_collided(body : Node2D, coinInstance : Area2D) -> void:
 		coinInstance.queue_free()
 	
 func _on_obstacle_collided(body : Node2D) -> void:
-	pass
+	if body.is_in_group("Player"):
+		#health -= coinHealth
+		#if health <= 0:
+			_game_over()
 	
+func _game_over() -> void:
+	$GameOver.show()
+	get_tree().paused = true
 	
+		
 	
