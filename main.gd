@@ -74,7 +74,8 @@ func _on_coin_collided(body : Node2D, coinInstance : Area2D) -> void:
 		health += coinHealth
 		if health > 100:
 			health = 100
-		coinInstance.queue_free()
+		coinInstance.get_node("AnimationPlayer").play("coinCollected")
+		$Player/CoinCollected.play()
 	
 func _on_obstacle_collided(body : Node2D) -> void:
 	if body.is_in_group("Player"):
@@ -84,6 +85,7 @@ func _on_obstacle_collided(body : Node2D) -> void:
 	
 func _game_over() -> void:
 	$GameOver.show()
+	$Player/GameOver.play()
 	get_tree().paused = true
 	
 		
